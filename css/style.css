@@ -8844,7 +8844,7 @@ h1, h2, h3, h4, h5,
       content: '';
       border-radius: 60%;
       background: #033fff;
-       }
+      opacity: .2; }
   .staff .text {
     width: 100%;
     opacity: 1;
