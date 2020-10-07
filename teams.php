@@ -86,34 +86,32 @@
                     <div class="col-md-8 tab-wrap">
                       
                       <div class="tab-content" id="v-pills-tabContent">
-        
-                        <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="day-1-tab">
-                          <div class="speaker-wrap ftco-animate d-flex">
-                            <div class="text pl-md-5">
-                              
-                              <h2><a href="#">POGALLA  SREEJA</a></h2>
-                              
-                              <h3 class="speaker-name">&mdash; <a href="#">BSc CSMS A</a> <span class="position">20CS4A1015</span></h3>
-                            </div>
-                          </div>
-                          <div class="speaker-wrap ftco-animate d-flex">
-                            <div class="img speaker-img" style="background-image: url(images/person_2.jpg);"></div>
-                            <div class="text pl-md-5">
-                              <span class="time">08:00AM - 10:00AM</span>
-                              <h2><a href="#">Best Practices For Programming WordPress</a></h2>
-                              <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                              <h3 class="speaker-name">&mdash; <a href="#">Brett Morgan</a> <span class="position">Founder of Wordpress</span></h3>
-                            </div>
-                          </div>
-                          <div class="speaker-wrap ftco-animate d-flex">
-                            <div class="img speaker-img" style="background-image: url(images/person_3.jpg);"></div>
-                            <div class="text pl-md-5">
-                              <span class="time">08:00AM - 10:00AM</span>
-                              <h2><a href="#">Web Performance For Third Party Scripts</a></h2>
-                              <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                              <h3 class="speaker-name">&mdash; <a href="#">Brett Morgan</a> <span class="position">Founder of Wordpress</span></h3>
-                            </div>
-                          </div>
+
+                        <?php
+
+                            ini_set('error_reporting', E_ALL);
+                            ini_set('display_errors', true);
+
+                            require_once __DIR__.'/SimpleXLSX.php';
+
+                            if ( $xlsx = SimpleXLSX::parse('first_years.xlsx')) {
+
+                              $dim = $xlsx->dimension();
+                              $num_cols = $dim[0];
+                              $num_rows = $dim[1];
+                              echo '<div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="day-1-tab">';
+                              foreach ( $xlsx->rows( 1 ) as $r ) {
+                                echo '<div class="speaker-wrap ftco-animate d-flex"> <div class="text pl-md-5">';
+                                  echo '<h2>' . $r[ 1 ] . '</h2>';
+                                  echo '<h3 class="speaker-name">&mdash;' . $r[2] . '<span class="position">' .$r[0] .'</span></h3>';
+                              }
+                                echo '</div> </div>';
+                              }
+                            else {
+                              echo SimpleXLSX::parseError();
+                            }
+                        ?>
+                          
                         </div>
         
                         <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-day-2-tab">
